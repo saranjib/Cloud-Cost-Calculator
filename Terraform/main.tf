@@ -1,18 +1,16 @@
 resource "azurerm_resource_group" "cost-rg" {
-  name     = var.cost-project-rg_name
-  location = var.location
+  name     = "cost-rg_name"
+  location = var.resource_group_location
 }
 
 # Storage account for cost exports, reports, and static website dashboard
 resource "azurerm_storage_account" "cost_sa" {
-  name                     = lower(replace(var.storage_account_name, "/[^a-z0-9]/", ""))
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
+  name                     = var.storage_account_name
+  resource_group_name      = azurerm_resource_group.cost-rg.name
+  location                 = azurerm_resource_group.cost-rg.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
-  allow_blob_public_access = false
 }
-
 
 # enable static website for dashboard (container $web)
 resource "azurerm_storage_account_static_website" "static" {
@@ -20,7 +18,6 @@ resource "azurerm_storage_account_static_website" "static" {
   index_document     = "index.html"
   error_404_document = "404.html"
 }
-
 
 # containers for cost exports and reports
 resource "azurerm_storage_container" "exports" {
@@ -34,3 +31,4 @@ resource "azurerm_storage_container" "reports" {
   storage_account_name  = azurerm_storage_account.cost_sa.name
   container_access_type = "private"
 }
+
