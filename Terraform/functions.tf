@@ -24,5 +24,13 @@ resource "azurerm_linux_function_app" "func_app" {
     ftps_state = "Disabled"
   }
 
- }
+app_settings = {
+    FUNCTIONS_EXTENSION_VERSION = "~4"
+    FUNCTIONS_WORKER_RUNTIME    = "python"
+    AzureWebJobsStorage         = azurerm_storage_account.cost_sa.primary_connection_string
+    SERVICEBUS_TOPIC_NAME       = azurerm_servicebus_topic.notifications.name
+    SERVICEBUS_NAMESPACE        = azurerm_servicebus_namespace.cost-servicebus.name
+    # Use Key Vault or Managed Identity in production to fetch secrets
+  }
+}
 
