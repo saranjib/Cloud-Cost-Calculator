@@ -22,13 +22,13 @@ resource "azurerm_storage_account_static_website" "static" {
 # containers for cost exports and reports
 resource "azurerm_storage_container" "exports" {
   name                  = "cost-exports"
-  storage_account_name  = azurerm_storage_account.cost_sa.name
+  storage_account_id    = azurerm_storage_account.cost_sa.id
   container_access_type = "private"
 }
 
 resource "azurerm_storage_container" "reports" {
   name                  = "cost-reports"
-  storage_account_name  = azurerm_storage_account.cost_sa.name
+  storage_account_id    = azurerm_storage_account.cost_sa.id
   container_access_type = "private"
 }
 
