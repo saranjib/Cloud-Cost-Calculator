@@ -6,7 +6,7 @@ resource "azurerm_consumption_budget_subscription" "cost_budget" {
   name            = "monthly-cost-budget"
   # provider expects full subscription path "/subscriptions/<uuid>"
   subscription_id = format("/subscriptions/%s", data.azurerm_client_config.current.subscription_id)
-  amount          = 20
+  amount          = 50
   time_grain      = "Monthly"
 
   time_period {
