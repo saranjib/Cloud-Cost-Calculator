@@ -22,7 +22,7 @@ resource "azurerm_monitor_metric_alert" "cost_spike" {
     metric_name      = "IncomingMessages"
     aggregation      = "Total"
     operator         = "GreaterThan"
-    threshold        = 20
+    threshold        = 100
   }
 
   action {
